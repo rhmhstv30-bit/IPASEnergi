@@ -176,7 +176,7 @@ var HAL=[
  function(){return '<h2 class="page">Halo, '+depan()+'.</h2><p class="lead">Yuk, baca dulu panduannya! Kamu akan belajar materi energi di ruang belajar ini.</p><ol class="t"><li>Posisimu selalu ditunjukkan oleh deretan tab di bagian atas. Bagian yang sedang dibuka berwarna kuning.</li><li>Tekan tombol Lanjut untuk menuju bagian berikutnya, dan tombol Kembali untuk mengulang bagian sebelumnya.</li><li>Bagian yang sudah kamu lewati dapat dibuka kembali melalui tab. Bagian yang belum kamu capai masih terkunci.</li><li>Materi dan kuis memerlukan koneksi internet. Apabila tampilannya kosong, muat ulang halaman atau gunakan tombol buka di tab baru.</li><li>Saat mengerjakan kuis, tulislah namamu persis seperti yang kamu isi ketika masuk.</li><li>Setelah selesai, tekan tombol Keluar. Data yang kamu isi di perangkat ini akan dihapus, sehingga kamu perlu mengisinya kembali saat masuk berikutnya.</li></ol><div class="box"><b>Urutan belajar</b>Panduan, Tujuan, Materi, Simulasi dan Contoh Soal, Kuis, Rangkuman, lalu Tentang.</div>'},
  function(){return '<h2 class="page">Tujuan Pembelajaran</h2><p class="lead">Setelah mempelajari materi ini, kamu diharapkan mampu:</p><ul class="t tujuan"><li>Menjelaskan pengertian energi kinetik, energi potensial, dan energi mekanik.</li><li>Menghitung energi kinetik dan energi potensial dengan satuan yang benar.</li><li>Menghitung energi mekanik sebagai jumlah energi kinetik dan energi potensial.</li><li>Mengerjakan soal dan kuis tentang ketiga energi tersebut dengan benar.</li></ul>'},
  function(){return '<h2 class="page">Materi: Energi Kinetik, Potensial, dan Mekanik</h2><p class="lead">Geser slide dengan tombol di bawah materi atau tombol panah pada keyboard.</p><div id="mat">'+CANVA+'</div><p class="credit" id="matcr"><a href="https://www.canva.com/design/DAHbVFcas_g/OhYsgj1nlgncCNtvvn-40A/view" target="_blank" rel="noopener">Buka materi di tab baru</a>. Jenis-jenis Energi Presentasi oleh Missel Putbyhah, dibuat dengan Canva.</p>'},
- function(){return '<h2 class="page">Simulasi dan Contoh Soal</h2><p class="lead">Coba simulasinya dulu, lalu kerjakan soal di bawahnya.</p><div class="ph">Simulasi akan ditampilkan di sini</div><ol class="t"><li>Atur massa benda, lalu perhatikan energinya.</li><li>Naikkan ketinggian. Tebak dulu sebelum menjalankan: energinya naik atau turun?</li><li>Bandingkan hasil simulasi dengan hitunganmu sendiri.</li></ol><h3 class="bag">Contoh Soal</h3><p class="lead">Tulis jawabanmu dalam joule, angkanya saja.</p>'+soalHtml()},
+ function(){return '<h2 class="page">Simulasi dan Contoh Soal</h2><p class="lead">Pilih jenis energinya, atur slider, dan perhatikan angkanya. Setelah itu kerjakan soal di bawahnya.</p><div id="sim"></div><ol class="t"><li>Atur massa benda, lalu perhatikan energinya.</li><li>Naikkan ketinggian. Tebak dulu sebelum menjalankan: energinya naik atau turun?</li><li>Bandingkan hasil simulasi dengan hitunganmu sendiri.</li></ol><h3 class="bag">Contoh Soal</h3><p class="lead">Tulis jawabanmu dalam joule, angkanya saja.</p>'+soalHtml()},
  function(){return '<h2 class="page">Kuis</h2><p class="lead">Kerjakan kuis ini untuk mengecek pemahamanmu. Tulis namamu persis seperti saat masuk: <strong>'+esc(S.nama)+'</strong>.</p>'+WG+'<p class="credit"><a href="https://wayground.com/embed/quiz/6afe9a364276e942c457c191" target="_blank" rel="noopener">Buka kuis di tab baru</a> kalau tampilan di atas tidak muncul.</p>'},
  function(){return '<h2 class="page">Rangkuman</h2><p class="lead">Poin penting yang perlu kamu ingat.</p><div class="box"><b>Pengertian</b>Energi kinetik adalah energi yang dimiliki benda karena geraknya.<br>Energi potensial adalah energi yang dimiliki benda karena posisinya, misalnya ketinggiannya.<br>Energi mekanik adalah jumlah energi kinetik dan energi potensial.<br>Satuan energi adalah joule (J).</div><div class="box"><b>Rumus</b><div class="formula">Ek = ½ · m · v²</div><div class="formula">Ep = m · g · h</div><div class="formula">Em = Ek + Ep</div>m = massa (kg), v = kecepatan (m/s), h = tinggi (m), g = percepatan gravitasi (sekitar 9,8 m/s², sering dibulatkan menjadi 10 m/s²).</div><div class="box"><b>Yang sering terlewat</b>Ubah satuan dulu sebelum menghitung, misalnya gram ke kg atau km/jam ke m/s. Kecepatan pada Ek dikuadratkan. Energi mekanik adalah jumlah Ek dan Ep.</div>'},
  function(){return '<h2 class="page">Tentang Media Ini</h2><dl class="info"><dt>Nama</dt><dd>Media Belajar IPAS: Energi</dd><dt>Untuk</dt><dd>Siswa kelas X SMK, mata pelajaran IPAS, materi energi</dd><dt>Isi</dt><dd>Panduan, tujuan, materi, simulasi dan contoh soal, kuis, serta rangkuman</dd><dt>Pengembang</dt><dd>[isi nama pengembang]</dd><dt>Materi dan kuis</dt><dd>Materi dibuat dengan Canva, kuis dibuat dengan Wayground</dd><dt>Catatan data</dt><dd>Nama, nomor absen, dan kelas yang kamu isi di awal digunakan untuk keperluan penelitian dan pengembangan media ini.</dd></dl>'}
@@ -211,6 +211,167 @@ document.addEventListener("keydown",function(e){
   if(e.key==="ArrowRight")slGeser(1); if(e.key==="ArrowLeft")slGeser(-1);
 });
 
+/* ===== Simulasi energi: kinetik, potensial, mekanik ===== */
+var SIM_CSS=`
+.sm{--sm-ep:#2478B5;--sm-epi:#fff;margin:16px 0 22px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sm{--sm-ep:#6CC3F0;--sm-epi:#0F1B30}}
+:root[data-theme="dark"] .sm{--sm-ep:#6CC3F0;--sm-epi:#0F1B30}
+.sm-tabs{display:flex;gap:6px;margin-bottom:8px}
+.sm-tabs button{flex:1;font:inherit;font-weight:700;padding:9px 6px;border:1.5px solid var(--ink-soft);border-radius:6px;background:var(--card);color:var(--ink);cursor:pointer}
+.sm-tabs button[aria-selected=true]{background:var(--amber);color:var(--amber-ink);border-color:var(--ink)}
+.sm-cap{margin:0 0 8px;color:var(--ink-soft);font-size:.95rem}
+.sm-stage{position:relative;border:1.5px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--card)}
+.sm-stage canvas{display:block;width:100%}
+.sm .sm-play{position:absolute;right:8px;bottom:8px;padding:3px 12px;font-size:.85rem;background:var(--card)}
+.sm-grid{display:grid;gap:12px;margin-top:12px;grid-template-columns:1fr 1fr}
+@media (max-width:560px){.sm-grid{grid-template-columns:1fr}}
+.sm-ctl,.sm-out{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.sm-row{display:grid;grid-template-columns:1fr auto;gap:0 8px;margin-bottom:10px}
+.sm-row label{margin:0}
+.sm-row input{grid-column:1/3;width:100%;accent-color:var(--ink)}
+.sm-g{margin:0;font-size:.85rem;color:var(--ink-soft)}
+.sm-f{font-style:italic;margin:2px 0}.sm-f.sub{font-style:normal}
+.sm-out b{padding:1px 8px;border-radius:5px}
+.ek{background:var(--amber);color:var(--amber-ink)}
+.ep{background:var(--sm-ep);color:var(--sm-epi)}
+.em{background:var(--ink);color:var(--paper)}
+.sm-bar{display:flex;height:22px;margin:10px 0 2px;border:1.5px solid var(--ink);border-radius:6px;background:var(--paper);overflow:hidden}
+.sm-bar i{display:block;height:100%;transition:width .15s}
+.sm-sc{display:flex;justify-content:space-between;font-size:.8rem;color:var(--ink-soft)}
+.sm-hint{margin:10px 0 0;font-size:.92rem;color:var(--ink-soft)}
+.sm-misi{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--amber);border-radius:6px}
+.sm-misi.ok{border-left-color:var(--ok)}
+.sm-misi p{margin:0}.sm-ok{color:var(--ok);font-weight:700}
+`;
+function muatSimulasi(){
+  var root=$("sim"); if(!root)return;
+  if(!document.getElementById("sim-css")){var st=document.createElement("style");st.id="sim-css";st.textContent=SIM_CSS;document.head.appendChild(st)}
+  var G=10,V={m:2,v:3,h:4},mode=0,play=true,px=0,ang=0,rt=0,mi=[0,0,0],C={},fr=0,last=0,W=0,H=0,u=1;
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)play=false;
+  var NM=["Kinetik","Potensial","Mekanik"],
+  CAP=["Troli meluncur di jalan. Energi kinetik ada karena benda bergerak.","Crane mengangkat balok. Energi potensial ada karena benda berada di ketinggian.","Drone terbang di ketinggian tertentu sambil bergerak, jadi punya Ek dan Ep sekaligus."],
+  HINT=["Kecepatan dikuadratkan: v dua kali lebih besar membuat Ek empat kali lebih besar.","Ep sebanding dengan massa dan tinggi: tinggi dua kali lebih besar membuat Ep dua kali lebih besar.","Em adalah jumlah Ek dan Ep. Coba buat v = 0, lalu h = 0, dan lihat energi mana yang tersisa."],
+  SL=[["m","Massa (m)"," kg",1,10],["v","Kecepatan (v)"," m/s",0,10],["h","Tinggi (h)"," m",0,10]],
+  USE=[["m","v"],["m","h"],["m","v","h"]],
+  TGT=[[18,50,100,200],[40,100,150,300],[60,90,150,250]],
+  JN=["energi kinetik","energi potensial","energi mekanik"];
+  function nf(n){return (Math.round(n*100)/100).toString().replace(".",",")}
+  function bar(p,max){return '<div class="sm-bar">'+p.map(function(x){return '<i class="'+x[1]+'" style="width:'+Math.min(100,x[0]/max*100)+'%"></i>'}).join("")+'</div><div class="sm-sc"><span>0</span><span>'+max+' J</span></div>'}
+
+  root.innerHTML='<div class="sm"><div class="sm-tabs" role="tablist" aria-label="Pilih jenis energi">'+NM.map(function(n,i){return '<button type="button" role="tab" data-mode="'+i+'">'+n+'</button>'}).join("")+'</div><p class="sm-cap" id="sm-cap"></p><div class="sm-stage"><canvas id="sm-cv" role="img"></canvas><button type="button" class="btn ghost sm-play" id="sm-play"></button></div><div class="sm-grid"><div class="sm-ctl">'+SL.map(function(s){return '<div class="sm-row" data-r="'+s[0]+'"><label for="sm-'+s[0]+'">'+s[1]+'</label><b id="sv-'+s[0]+'"></b><input type="range" id="sm-'+s[0]+'" data-k="'+s[0]+'" min="'+s[3]+'" max="'+s[4]+'" step="1" value="'+V[s[0]]+'"></div>'}).join("")+'<p class="sm-g">g = 10 m/s²</p></div><div class="sm-out" id="sm-out"></div></div><div class="sm-misi" id="sm-misi"><p id="sm-mt" role="status"></p><button type="button" class="btn ghost" id="sm-mb">Misi lain</button></div></div>';
+
+  var cv=$("sm-cv"),cx=cv.getContext("2d");
+  function getC(){
+    var s=getComputedStyle(document.documentElement);function g(n,f){return s.getPropertyValue(n).trim()||f}
+    C={ink:g("--ink","#14284B"),amber:g("--amber","#E8A317"),card:g("--card","#fff"),ai:g("--amber-ink","#14284B"),cloud:g("--cloud","#E6ECF1"),h1:g("--hill1","#C4D0DB"),h3:g("--hill3","#B3C2D0"),tower:g("--tower","#5B6B80"),dk:parseInt(g("--paper","#F4F6F3").slice(1,3),16)<100};
+    C.ep=C.dk?"#6CC3F0":"#2478B5";C.epi=C.dk?"#0F1B30":"#fff";
+  }
+  function fit(){var w=cv.parentNode.clientWidth||600,h=Math.round(w*(w<520?.74:.5)),d=window.devicePixelRatio||1;cv.style.height=h+"px";cv.width=w*d;cv.height=h*d;cx.setTransform(d,0,0,d,0,0);W=w;H=h;u=Math.max(.9,Math.min(1.45,w/470))}
+
+  function upd(){
+    var m=V.m,v=V.v,h=V.h,ek=.5*m*v*v,ep=m*G*h,em=ek+ep,val=[ek,ep,em][mode],o="";
+    [].forEach.call(root.querySelectorAll(".sm-tabs button"),function(b,i){b.setAttribute("aria-selected",i==mode)});
+    SL.forEach(function(s){root.querySelector('[data-r="'+s[0]+'"]').hidden=USE[mode].indexOf(s[0])<0;$("sv-"+s[0]).textContent=V[s[0]]+s[2]});
+    var fk='<div class="sm-f sub">Ek = ½ × '+m+' × '+v+'² = <b class="ek">'+nf(ek)+' J</b></div>',fp='<div class="sm-f sub">Ep = '+m+' × 10 × '+h+' = <b class="ep">'+nf(ep)+' J</b></div>';
+    if(mode==0)o='<div class="sm-f">Ek = ½ × m × v²</div>'+fk+bar([[ek,"ek"]],500);
+    if(mode==1)o='<div class="sm-f">Ep = m × g × h</div>'+fp+bar([[ep,"ep"]],1000);
+    if(mode==2)o=fk+fp+'<div class="sm-f">Em = Ek + Ep = '+nf(ek)+' + '+nf(ep)+' = <b class="em">'+nf(em)+' J</b></div>'+bar([[ek,"ek"],[ep,"ep"]],1500);
+    $("sm-out").innerHTML=o+'<p class="sm-hint">'+HINT[mode]+'</p>';
+    $("sm-cap").textContent=CAP[mode];cv.setAttribute("aria-label",CAP[mode]);
+    $("sm-play").hidden=mode==1;$("sm-play").textContent=play?"Jeda":"Jalankan";
+    var t=TGT[mode][mi[mode]],ok=Math.abs(val-t)<1e-6;
+    $("sm-mt").innerHTML='<b>Misi:</b> buat '+JN[mode]+' tepat <b>'+t+' J</b>. '+(ok?'<span class="sm-ok">✔ Berhasil!</span>':'Geser slider sampai angkanya pas.');
+    $("sm-misi").className="sm-misi"+(ok?" ok":"");
+  }
+
+  /* ---- gambar ---- */
+  function T(s,x,y,al,sz,c){cx.font="600 "+(sz||13)+"px Georgia,serif";cx.textAlign=al||"left";cx.fillStyle=c||C.ink;cx.fillText(s,x,y)}
+  function rr(x,y,w,h,r){cx.beginPath();cx.moveTo(x+r,y);cx.arcTo(x+w,y,x+w,y+h,r);cx.arcTo(x+w,y+h,x,y+h,r);cx.arcTo(x,y+h,x,y,r);cx.arcTo(x,y,x+w,y,r);cx.closePath()}
+  function cloud(x,y,k){cx.beginPath();cx.ellipse(x,y,34*k,10*k,0,0,7);cx.fill();cx.beginPath();cx.arc(x-10*k,y-7*k,13*k,0,7);cx.fill();cx.beginPath();cx.arc(x+10*k,y-11*k,16*k,0,7);cx.fill()}
+  function base(){
+    var gy=Math.round(H*.84),g=cx.createLinearGradient(0,0,0,gy);
+    g.addColorStop(0,C.dk?"#13284A":"#BFDDF2");g.addColorStop(1,C.dk?"#24406A":"#EEF5F8");
+    cx.fillStyle=g;cx.fillRect(0,0,W,H);
+    cx.fillStyle=C.amber;cx.beginPath();cx.arc(W*.9,H*.16,Math.min(22,W*.04),0,7);cx.fill();
+    cx.fillStyle=C.cloud;for(var i=0;i<3;i++){var L=W+140,x=(((i*W*.45-px*.12)%L)+L)%L-70;cloud(x,H*(.13+i*.09),.7+i*.15)}
+    cx.fillStyle=C.h1;cx.beginPath();cx.moveTo(0,gy);for(var x=0;x<=W;x+=8)cx.lineTo(x,gy-16-10*Math.sin((x+px*.25)/90)-6*Math.sin((x+px*.25)/37));cx.lineTo(W,gy);cx.fill();
+    cx.fillStyle=C.h3;cx.fillRect(0,gy,W,H-gy);
+    return gy;
+  }
+  function ruler(gy,sc){
+    cx.strokeStyle=C.ink;cx.lineWidth=2;cx.beginPath();cx.moveTo(46,gy);cx.lineTo(46,gy-10*sc);cx.stroke();cx.lineWidth=1.5;
+    for(var i=0;i<=10;i++){var y=gy-i*sc;cx.beginPath();cx.moveTo(46,y);cx.lineTo(i%2?52:58,y);cx.stroke();if(i%2==0)T(i,64,y+4,"left",11)}
+    T(W>=520?"tinggi (m)":"m",46,gy-10*sc-18,"left",11);
+  }
+  function dim(x,y1,y2,h,side){
+    if(h<=0)return;cx.strokeStyle=C.ink;cx.fillStyle=C.ink;cx.lineWidth=1.5;cx.setLineDash([4,3]);cx.beginPath();cx.moveTo(x,y1);cx.lineTo(x,y2);cx.stroke();cx.setLineDash([]);
+    cx.beginPath();cx.moveTo(x,y2);cx.lineTo(x-4,y2+8);cx.lineTo(x+4,y2+8);cx.fill();cx.beginPath();cx.moveTo(x,y1);cx.lineTo(x-4,y1-8);cx.lineTo(x+4,y1-8);cx.fill();
+    T("h = "+h+" m",x+side*8,(y1+y2)/2+4,side>0?"left":"right",13);
+  }
+  function arrow(x,y,len,txt){
+    cx.strokeStyle=C.ink;cx.fillStyle=C.ink;cx.lineWidth=3;cx.lineCap="round";
+    if(len>0){cx.beginPath();cx.moveTo(x,y);cx.lineTo(x+len,y);cx.stroke();cx.beginPath();cx.moveTo(x+len+8,y);cx.lineTo(x+len-2,y-6);cx.lineTo(x+len-2,y+6);cx.fill()}
+    T(txt,x,y-10,"left",13);
+  }
+  function lines(x,y,sp){if(sp<=0)return;cx.strokeStyle=C.ink;cx.globalAlpha=.3;cx.lineWidth=2;for(var k=0;k<3;k++){cx.beginPath();cx.moveTo(x-6-k*3,y+k*9);cx.lineTo(x-10-k*3-sp*5,y+k*9);cx.stroke()}cx.globalAlpha=1}
+  function shadow(x,gy,r){cx.globalAlpha=.22;cx.fillStyle="#000";cx.beginPath();cx.ellipse(x,gy+5,Math.max(8,r),4,0,0,7);cx.fill();cx.globalAlpha=1}
+
+  function kin(gy){
+    cx.fillStyle=C.dk?"#0C1626":"#56657A";cx.fillRect(0,gy,W,H-gy);
+    cx.fillStyle="#E6ECF1";for(var x=-(px%70);x<W;x+=70)cx.fillRect(x,gy+(H-gy)*.55,32,4);
+    var s=(24+V.m*2.4)*u,cw=118*u,x0=W*.34-cw/2,fs=Math.round(11*Math.min(u,1.25));
+    lines(x0,gy-30*u,V.v);
+    rr(x0,gy-34*u,cw,16*u,5);cx.fillStyle=C.ink;cx.fill();
+    rr(x0+cw/2-s/2,gy-34*u-s,s,s,4);cx.fillStyle=C.amber;cx.fill();cx.strokeStyle=C.ink;cx.lineWidth=2;cx.stroke();
+    T(V.m+" kg",x0+cw/2,gy-34*u-s/2+4,"center",fs,C.ai);
+    [x0+24*u,x0+cw-24*u].forEach(function(wx){cx.beginPath();cx.arc(wx,gy-10*u,10*u,0,7);cx.fillStyle=C.card;cx.fill();cx.strokeStyle=C.ink;cx.lineWidth=3;cx.stroke();cx.beginPath();cx.moveTo(wx,gy-10*u);cx.lineTo(wx+8*u*Math.cos(ang),gy-10*u+8*u*Math.sin(ang));cx.stroke()});
+    arrow(x0+cw+10,gy-48*u,V.v*7*u,"v = "+V.v+" m/s");
+  }
+  function pot(gy){
+    var sc=(gy-(42+52*u))/10,s=(24+V.m*2.2)*u,fs=Math.round(11*Math.min(u,1.25)),bx=W*.5-s/2,hy=gy-V.h*sc,by=hy-s,tx=W*.84;
+    ruler(gy,sc);
+    cx.fillStyle=C.tower;cx.fillRect(tx,12,10,gy-12);cx.fillRect(bx+s/2-24,12,tx+10-(bx+s/2-24),8);
+    cx.strokeStyle=C.ink;cx.lineWidth=2;cx.beginPath();cx.moveTo(bx+s/2,20);cx.lineTo(bx+s/2,by);cx.stroke();
+    shadow(bx+s/2,gy,s*.7-V.h*1.5);
+    rr(bx,by,s,s,4);cx.fillStyle=C.ep;cx.fill();cx.strokeStyle=C.ink;cx.lineWidth=2;cx.stroke();
+    T(V.m+" kg",bx+s/2,by+s/2+4,"center",fs,C.epi);
+    dim(bx-16,gy,hy,V.h,-1);
+  }
+  function mec(gy){
+    var sc=(gy-(42+52*u))/10,ds=(.8+V.m*.04)*u,dx=W*.56,dy=gy-V.h*sc-18*ds;
+    ruler(gy,sc);
+    cx.globalAlpha=.3;cx.fillStyle=C.ink;for(var x=-(px%50);x<W;x+=50)cx.fillRect(x,gy+4,4,12);cx.globalAlpha=1;
+    shadow(dx,gy,34*ds-V.h*1.5);
+    lines(dx-40*ds,dy-4,V.v);
+    cx.strokeStyle=C.ink;cx.lineWidth=3;cx.beginPath();cx.moveTo(dx-16*ds,dy+10*ds);cx.lineTo(dx-20*ds,dy+18*ds);cx.moveTo(dx+16*ds,dy+10*ds);cx.lineTo(dx+20*ds,dy+18*ds);
+    cx.moveTo(dx-8*ds,dy-6*ds);cx.lineTo(dx-34*ds,dy-14*ds);cx.moveTo(dx+8*ds,dy-6*ds);cx.lineTo(dx+34*ds,dy-14*ds);cx.stroke();
+    cx.beginPath();cx.ellipse(dx,dy,30*ds,13*ds,0,0,7);cx.fillStyle=C.ink;cx.fill();
+    T(V.m+" kg",dx,dy+4,"center",11,C.dk?"#0F1B30":"#fff");
+    [-1,1].forEach(function(k){cx.beginPath();cx.ellipse(dx+k*34*ds,dy-16*ds,20*ds*(.45+.55*Math.abs(Math.cos(rt))),3,0,0,7);cx.fillStyle=C.amber;cx.fill()});
+    arrow(dx+38*ds,dy-26*ds,V.v*7*u,"v = "+V.v+" m/s");
+    dim(dx,gy,dy+18*ds,V.h,1);
+  }
+  function draw(){var gy=base();[kin,pot,mec][mode](gy)}
+  function loop(t){
+    if(!root.isConnected)return;
+    var dt=Math.min(.05,(t-last)/1000||0);last=t;
+    if(play){px+=V.v*dt*22;ang+=V.v*dt*2.2;rt+=dt*28}
+    if(fr++%60==0)getC();
+    draw();requestAnimationFrame(loop);
+  }
+
+  root.addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    if(b.getAttribute("data-mode")!=null)mode=+b.getAttribute("data-mode");
+    else if(b.id=="sm-play")play=!play;
+    else if(b.id=="sm-mb")mi[mode]=(mi[mode]+1)%TGT[mode].length;
+    upd();
+  });
+  root.addEventListener("input",function(e){var k=e.target.getAttribute("data-k");if(k){V[k]=+e.target.value;upd()}});
+  window.addEventListener("resize",function f(){if(!root.isConnected){window.removeEventListener("resize",f);return}fit()});
+  getC();fit();upd();requestAnimationFrame(loop);
+}
+
 function tabs(){
   var h="";
   BAGIAN.forEach(function(b,i){
@@ -221,7 +382,7 @@ function tabs(){
 }
 function render(){
   var p=S.p||0; if(S.max==null||S.max<p)S.max=p;
-  tabs(); $("isi").innerHTML=HAL[p](); if(p==2)muatSlide();
+  tabs(); $("isi").innerHTML=HAL[p](); if(p==2)muatSlide(); if(p==3)muatSimulasi();
   $("kembali").style.visibility=p==0?"hidden":"visible";
   $("lanjut").textContent=p==N?"Selesai dan keluar":"Lanjut";
   var on=document.querySelector(".tab.on"); if(on&&on.scrollIntoView)on.scrollIntoView({block:"nearest",inline:"center"});
