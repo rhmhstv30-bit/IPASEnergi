@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Media Belajar IPAS: Energi</title>
+<style>
+:root{
+  --paper:#F4F6F3; --ink:#14284B; --ink-soft:#4A5A70; --line:#C9D2DC;
+  --amber:#E8A317; --amber-ink:#14284B; --card:#FFFFFF; --grid:rgba(20,40,75,.07); --ok:#1E6B3A; --bad:#B3261E;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1B30; --ink:#E9EEF5; --ink-soft:#A8B5C6; --line:#2C3D58;
+    --amber:#F0B33A; --amber-ink:#0F1B30; --card:#16253F; --grid:rgba(233,238,245,.06); --ok:#7BD59A; --bad:#FF8A80; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1B30; --ink:#E9EEF5; --ink-soft:#A8B5C6; --line:#2C3D58;
+  --amber:#F0B33A; --amber-ink:#0F1B30; --card:#16253F; --grid:rgba(233,238,245,.06); --ok:#7BD59A; --bad:#FF8A80; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:Georgia,"Times New Roman",serif;line-height:1.65;color:var(--ink);background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+.stripe{height:14px;background:repeating-linear-gradient(-45deg,var(--amber) 0 14px,var(--ink) 14px 28px)}
+.wrap{max-width:720px;margin:0 auto;padding:26px 20px 48px}
+[hidden]{display:none!important}
+.doc{font-size:.9rem;color:var(--ink-soft);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:34px}
+h1.welcome{font-size:clamp(2.1rem,8vw,3.2rem);line-height:1.1;margin:0 0 12px;font-style:italic;font-weight:700;letter-spacing:-.02em}
+.sub{font-size:1.15rem;margin:0 0 30px;max-width:42ch}
+.sheet{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:18px 18px 20px}
+.sheet h2{font-size:1.1rem;margin:0 0 14px}
+label{display:block;font-weight:700;font-size:.92rem;margin:12px 0 3px}
+input[type=text],input:not([type]),select{width:100%;font:inherit;font-size:.95rem;padding:7px 10px;color:var(--ink);background:var(--paper);border:1px solid var(--ink-soft);border-radius:6px}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.err{color:var(--bad);min-height:1.4em;margin:10px 0 0;font-size:.95rem}
+.btn{font:inherit;font-weight:700;background:var(--amber);color:var(--amber-ink);border:1.5px solid var(--ink);padding:8px 20px;cursor:pointer;border-radius:6px}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.sheet .btn{margin-top:18px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:18px}
+.who{margin:0;font-size:1rem;line-height:1.3}.who small{display:block;color:var(--ink-soft);font-size:.85rem}
+.top .btn{padding:6px 14px;font-size:.9rem}
+.ruler svg{width:100%;height:26px;display:block}
+.prog{margin:4px 0 22px;font-size:.9rem;color:var(--ink-soft);font-style:italic}
+h2.page{font-size:1.7rem;margin:0 0 8px;font-style:italic;line-height:1.25}
+.lead{margin:0 0 18px;color:var(--ink-soft);max-width:56ch}
+.box{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--amber);border-radius:6px;padding:12px 16px;margin:14px 0}
+.box b{display:block;margin-bottom:4px}
+.formula{font-size:1.5rem;font-style:italic;margin:6px 0}
+.ph{border:1.5px dashed var(--ink-soft);border-radius:8px;min-height:190px;display:grid;place-items:center;text-align:center;padding:18px;color:var(--ink-soft);margin:16px 0;
+  background:repeating-linear-gradient(-45deg,transparent 0 12px,var(--grid) 12px 13px)}
+ul.t,ol.t{padding-left:22px;max-width:56ch}ul.t li,ol.t li{margin:6px 0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.row input{max-width:160px}
+.fb{margin:12px 0 0;min-height:1.5em;font-weight:700}
+.fb.ok{color:var(--ok)}.fb.no{color:var(--bad)}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--ink-soft);border-radius:6px;background:var(--card);padding:8px 12px;margin:8px 0;cursor:pointer}
+.opt input{margin-top:6px}
+.score{display:flex;gap:26px;margin:8px 0 0}.score span{display:block;font-size:.85rem;color:var(--ink-soft)}.score strong{font-size:1.6rem}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:18px}
+.foot{margin-top:22px;font-size:.85rem;color:var(--ink-soft)}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:rise .5s ease-out both}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ===== Latar bertema energi (bergerak pelan) ===== */
+:root{--panel:rgba(255,255,255,.94);--hill0:#E1E8EE;--hill1:#C4D0DB;--hill2:#D9E1E8;--hill3:#B3C2D0;--cloud:#E6ECF1;--tower:#5B6B80}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--panel:rgba(22,37,63,.94);--hill0:#12223A;--hill1:#1E3252;--hill2:#162843;--hill3:#25406A;--cloud:#233A5E;--tower:#7F90A8}}
+:root[data-theme="dark"]{--panel:rgba(22,37,63,.94);--hill0:#12223A;--hill1:#1E3252;--hill2:#162843;--hill3:#25406A;--cloud:#233A5E;--tower:#7F90A8}
+.scene{position:fixed;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#st{display:none}
+@media (max-aspect-ratio:9/10){#sw{display:none}#st{display:block}}
+.wrap{position:relative;z-index:1}
+.stripe{position:relative;z-index:2}
+.h0{fill:var(--hill0)}.t-f{fill:var(--tower)}.h1{fill:var(--hill1)}.h2{fill:var(--hill2)}.h3{fill:var(--hill3)}.cl{fill:var(--cloud)}
+.a-f{fill:var(--amber)}.a-s{stroke:var(--amber)}.i-s{stroke:var(--ink)}.t-s{stroke:var(--tower)}
+.aksi{display:flex;gap:8px}
+main ~ .stripe{position:fixed;left:0;right:0;bottom:0;z-index:2}
+
+@media (max-aspect-ratio:9/10){}
+
+/* ===== Panel latar untuk teks supaya mudah dibaca ===== */
+.wrap{margin:18px auto 44px;padding:24px 24px 30px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.sheet{background:var(--paper)}
+@media (max-aspect-ratio:9/10){.wrap{margin:12px auto 150px;width:calc(100% - 24px);padding:20px 16px 24px}}
+#v-login{margin:0 auto;padding:26px 20px 48px;background:none;border:none;border-radius:0}
+#v-login .sheet{background:var(--card)}
+@media (max-aspect-ratio:9/10){#v-login{padding:26px 8px 150px}}
+
+/* ===== Tab posisi, embed, bagian isi ===== */
+#v-app{max-width:820px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.tab{flex:0 0 auto;font:inherit;font-size:.85rem;padding:6px 11px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--ink-soft);cursor:pointer;white-space:nowrap}
+.tab.done{color:var(--ink);border-color:var(--ink-soft)}
+.tab.on{background:var(--amber);color:var(--amber-ink);border-color:var(--ink);font-weight:700}
+.tab:disabled{opacity:.45;cursor:not-allowed}
+.tab:hover:not(:disabled):not(.on){background:var(--paper)}
+.tag{display:inline-block;margin-left:8px;padding:0 8px;font-size:.78rem;border:1px solid var(--ink-soft);border-radius:10px;color:var(--ink-soft);white-space:nowrap}
+ul.tujuan li{margin:10px 0}
+.canva{position:relative;width:100%;padding-top:56.25%;overflow:hidden;border-radius:8px;box-shadow:0 2px 8px rgba(63,69,81,.16);margin:14px 0 10px}
+.canva iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.wg{display:flex;flex-direction:column;gap:8px;min-height:635px;margin:12px 0}
+.wg iframe{flex:1;width:100%;border:0}
+.credit{font-size:.85rem;color:var(--ink-soft);margin:6px 0}
+.credit a{color:var(--ink)}
+h3.bag{font-size:1.15rem;margin:26px 0 6px}
+.soal p{margin:0 0 4px}
+.soal .row{margin-top:8px}
+dl.info{margin:0;max-width:60ch}dl.info dt{font-weight:700;margin-top:12px}dl.info dd{margin:2px 0 0;color:var(--ink-soft)}
+.ab{margin:12px 0 0;max-width:62ch;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 16px 14px}
+.ab-h{display:flex;width:fit-content;align-items:stretch;margin-bottom:8px;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden}
+.ab-n{background:var(--ink);color:var(--paper);font-weight:700;padding:2px 10px}
+.ab-t{background:var(--amber);color:var(--amber-ink);font-weight:700;padding:2px 12px}
+.ab p{margin:0;color:var(--ink-soft)}
+.ab-c{display:inline-block;margin:0 6px 6px 0;padding:2px 10px;border:1.5px solid var(--ink-soft);border-radius:6px;background:var(--paper);color:var(--ink);font-size:.95rem}
+.slider .sl-view{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;min-height:120px}
+.slider .sl-view img{display:block;width:100%;height:auto}
+.sl-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px}
+.sl-bar .btn{padding:6px 14px}.sl-bar .btn:disabled{opacity:.4;cursor:not-allowed}
+#sl-no{font-size:.9rem;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="stripe" aria-hidden="true"></div>
+<svg id="sw" class="scene" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><g><g class="a-s" stroke-width="5" stroke-linecap="round"><line x1="1060" y1="62" x2="1060" y2="48" transform="rotate(0 1060 110)"/><line x1="1060" y1="62" x2="1060" y2="48" transform="rotate(45 1060 110)"/><line x1="1060" y1="62" x2="1060" y2="48" transform="rotate(90 1060 110)"/><line x1="1060" y1="62" x2="1060" y2="48" transform="rotate(135 1060 110)"/><line x1="1060" y1="62" x2="1060" y2="48" transform="rotate(180 1060 110)"/><line x1="1060" y1="62" x2="1060" y2="48" transform="rotate(225 1060 110)"/><line x1="1060" y1="62" x2="1060" y2="48" transform="rotate(270 1060 110)"/><line x1="1060" y1="62" x2="1060" y2="48" transform="rotate(315 1060 110)"/><animateTransform attributeName="transform" type="rotate" from="0 1060 110" to="360 1060 110" dur="50s" repeatCount="indefinite"/></g><circle cx="1060" cy="110" r="34" class="a-f"/></g><g class="cl"><g><g transform="scale(1)"><ellipse rx="46" ry="14"/><circle cx="-14" cy="-10" r="17"/><circle cx="14" cy="-15" r="21"/></g><animateTransform attributeName="transform" type="translate" from="-150 80" to="1350 80" dur="95s" begin="-30s" repeatCount="indefinite"/></g></g><g class="cl"><g><g transform="scale(0.8)"><ellipse rx="46" ry="14"/><circle cx="-14" cy="-10" r="17"/><circle cx="14" cy="-15" r="21"/></g><animateTransform attributeName="transform" type="translate" from="-150 215" to="1350 215" dur="140s" begin="-100s" repeatCount="indefinite"/></g></g><g><g transform="translate(250 190)"><path d="M-3,0 L-9,30 M3,0 L9,30" class="t-s" stroke-width="1.5"/><rect x="-10" y="30" width="20" height="12" rx="2" class="t-f"/><ellipse cy="-26" rx="26" ry="32" class="a-f"/><path d="M-9,-56 C-20,-30 -14,-6 -3,0 M9,-56 C20,-30 14,-6 3,0" fill="none" class="t-s" stroke-width="2"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -16;0 0" dur="9s" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" repeatCount="indefinite"/></g><path class="h0" d="M0,480 C100,400 180,380 260,420 C340,330 440,330 520,430 C640,360 760,380 860,440 C960,380 1080,360 1200,430 L1200,700 L0,700Z"/><path class="h2" d="M0,560 C200,500 380,540 560,560 C760,585 960,500 1200,540 L1200,700 L0,700Z"/><path class="t-s" stroke-width="5" stroke-linecap="round" d="M960,555 L960,420"/><g class="t-s" stroke-width="4" stroke-linecap="round"><line x1="960" y1="420" x2="960" y2="368"/><line x1="960" y1="420" x2="960" y2="368" transform="rotate(120 960 420)"/><line x1="960" y1="420" x2="960" y2="368" transform="rotate(240 960 420)"/><animateTransform attributeName="transform" type="rotate" from="0 960 420" to="360 960 420" dur="8s" repeatCount="indefinite"/></g><path class="t-s" stroke-width="4" stroke-linecap="round" d="M1100,545 L1100,455"/><g class="t-s" stroke-width="3" stroke-linecap="round"><line x1="1100" y1="455" x2="1100" y2="415"/><line x1="1100" y1="455" x2="1100" y2="415" transform="rotate(120 1100 455)"/><line x1="1100" y1="455" x2="1100" y2="415" transform="rotate(240 1100 455)"/><animateTransform attributeName="transform" type="rotate" from="0 1100 455" to="360 1100 455" dur="10s" repeatCount="indefinite"/></g><path class="h1" d="M0,630 C250,590 450,640 700,640 C950,640 1080,600 1200,610 L1200,700 L0,700Z"/><g class="t-s" stroke-width="3" stroke-linecap="round"><line x1="140" y1="570" x2="140" y2="700"/><line x1="410" y1="570" x2="410" y2="700"/><line x1="275" y1="648" x2="275" y2="700"/></g><path class="i-s" fill="none" stroke-width="5" stroke-linecap="round" d="M140,570 C194,675 356,675 410,570"/><circle r="11" class="a-f i-s" stroke-width="2.5"><animateMotion dur="7s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1;0" keyTimes="0;0.5;1" keySplines=".37 0 .63 1;.37 0 .63 1" path="M140,559 C194,664 356,664 410,559"/></circle></svg>
+<svg id="st" class="scene" viewBox="0 0 500 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><g><g class="a-s" stroke-width="5" stroke-linecap="round"><line x1="390" y1="56" x2="390" y2="42" transform="rotate(0 390 100)"/><line x1="390" y1="56" x2="390" y2="42" transform="rotate(45 390 100)"/><line x1="390" y1="56" x2="390" y2="42" transform="rotate(90 390 100)"/><line x1="390" y1="56" x2="390" y2="42" transform="rotate(135 390 100)"/><line x1="390" y1="56" x2="390" y2="42" transform="rotate(180 390 100)"/><line x1="390" y1="56" x2="390" y2="42" transform="rotate(225 390 100)"/><line x1="390" y1="56" x2="390" y2="42" transform="rotate(270 390 100)"/><line x1="390" y1="56" x2="390" y2="42" transform="rotate(315 390 100)"/><animateTransform attributeName="transform" type="rotate" from="0 390 100" to="360 390 100" dur="50s" repeatCount="indefinite"/></g><circle cx="390" cy="100" r="30" class="a-f"/></g><g class="cl"><g><g transform="scale(1)"><ellipse rx="46" ry="14"/><circle cx="-14" cy="-10" r="17"/><circle cx="14" cy="-15" r="21"/></g><animateTransform attributeName="transform" type="translate" from="-150 70" to="650 70" dur="90s" begin="-20s" repeatCount="indefinite"/></g></g><g class="cl"><g><g transform="scale(0.8)"><ellipse rx="46" ry="14"/><circle cx="-14" cy="-10" r="17"/><circle cx="14" cy="-15" r="21"/></g><animateTransform attributeName="transform" type="translate" from="-150 170" to="650 170" dur="130s" begin="-80s" repeatCount="indefinite"/></g></g><path class="h0" d="M0,640 C60,590 110,570 160,610 C210,540 280,540 330,620 C390,570 450,590 500,630 L500,900 L0,900Z"/><path class="h2" d="M0,730 C120,690 240,720 360,730 C420,736 460,715 500,720 L500,900 L0,900Z"/><path class="t-s" stroke-width="5" stroke-linecap="round" d="M70,690 L70,600"/><g class="t-s" stroke-width="3" stroke-linecap="round"><line x1="70" y1="600" x2="70" y2="554"/><line x1="70" y1="600" x2="70" y2="554" transform="rotate(120 70 600)"/><line x1="70" y1="600" x2="70" y2="554" transform="rotate(240 70 600)"/><animateTransform attributeName="transform" type="rotate" from="0 70 600" to="360 70 600" dur="8s" repeatCount="indefinite"/></g><path class="t-s" stroke-width="4" stroke-linecap="round" d="M430,690 L430,615"/><g class="t-s" stroke-width="3" stroke-linecap="round"><line x1="430" y1="615" x2="430" y2="577"/><line x1="430" y1="615" x2="430" y2="577" transform="rotate(120 430 615)"/><line x1="430" y1="615" x2="430" y2="577" transform="rotate(240 430 615)"/><animateTransform attributeName="transform" type="rotate" from="0 430 615" to="360 430 615" dur="10s" repeatCount="indefinite"/></g><path class="h1" d="M0,830 C150,800 300,835 500,815 L500,900 L0,900Z"/><g class="t-s" stroke-width="3" stroke-linecap="round"><line x1="120" y1="800" x2="120" y2="900"/><line x1="380" y1="800" x2="380" y2="900"/><line x1="250" y1="860" x2="250" y2="900"/></g><path class="i-s" fill="none" stroke-width="5" stroke-linecap="round" d="M120,800 C172,880 328,880 380,800"/><circle r="11" class="a-f i-s" stroke-width="2.5"><animateMotion dur="7s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1;0" keyTimes="0;0.5;1" keySplines=".37 0 .63 1;.37 0 .63 1" path="M120,789 C172,869 328,869 380,789"/></circle></svg>
+
+<main class="wrap" id="v-login">
+  <div class="doc">Lembar Kerja Siswa, IPAS Kelas X</div>
+  <h1 class="welcome">Welcome</h1>
+  <p class="sub">Mari belajar energi bersama. Isi data dirimu dulu untuk memulai ya.</p>
+  <div class="sheet">
+    <h2>Data Siswa</h2>
+    <label for="nama">Nama lengkap</label><input id="nama" autocomplete="off">
+    <label for="absen">Nomor absen</label><input id="absen" inputmode="numeric" maxlength="3" autocomplete="off">
+    <label for="kelas">Kelas</label>
+    <select id="kelas" autocomplete="off"><option value="">Pilih kelas</option><option>X PPLG 1</option><option>X PPLG 2</option><option>X Pengelasan</option><option>X Teknik Mesin</option><option>X Animasi</option><option>X DKV</option></select>
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn" id="masuk">Mulai belajar</button>
+  </div>
+</main>
+
+<main class="wrap" id="v-app" hidden>
+  <div class="top">
+    <p class="who"><strong id="w-nama"></strong><small id="w-info"></small></p>
+    <button class="btn ghost" id="keluar">Keluar</button>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="Bagian belajar"></nav>
+  <div id="isi"></div>
+  <div class="nav"><button class="btn ghost" id="kembali">Kembali</button><button class="btn" id="lanjut">Lanjut</button></div>
+</main>
+<div class="stripe" aria-hidden="true"></div>
+
+<script>
+var BAGIAN=["Panduan","Tujuan","Materi","Simulasi dan Soal","Kuis","Rangkuman","Tentang"];
+var N=BAGIAN.length-1,KEY="energi_v3",S={};
+function $(i){return document.getElementById(i)}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function load(){try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function depan(){return esc((S.nama||"").split(" ")[0])}
+
+var SOAL=[
+ {s:"Sebuah benda bermassa 2 kg berada pada ketinggian 5 m dan bergerak dengan kecepatan 4 m/s. Berapa energi mekaniknya? (g = 10 m/s²)",a:116,ok:"Tepat. Ek = 16 J dan Ep = 100 J, jadi Em = Ek + Ep = 116 J.",
+  w:{100:"Itu baru energi potensialnya. Energi mekanik = Ek + Ep, jadi tambahkan Ek.",16:"Itu baru energi kinetiknya. Energi mekanik = Ek + Ep, jadi tambahkan Ep.",132:"Ek-mu belum dikali ½. Ek = ½ · 2 · 4² = 16 J."}}
+];
+function soalHtml(){
+  return SOAL.map(function(q,i){return '<div class="box soal"><b>Soal '+(i+1)+'</b><p>'+q.s+'</p><div class="row"><input data-i="'+i+'" id="jw'+i+'" inputmode="decimal" aria-label="Jawaban soal '+(i+1)+'"><span>J</span><button class="btn" data-cek="'+i+'">Periksa</button></div><p class="fb" id="fb'+i+'" role="status"></p></div>'}).join("");
+}
+var CANVA='<div class="canva"><iframe loading="lazy" title="Materi Jenis-jenis Energi" src="https://www.canva.com/design/DAHbVFcas_g/OhYsgj1nlgncCNtvvn-40A/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe></div>';
+var WG='<div class="wg"><iframe title="Kuis Energi" src="https://wayground.com/embed/quiz/6afe9a364276e942c457c191" frameborder="0" allowfullscreen></iframe></div>';
+
+var HAL=[
+ function(){return '<h2 class="page">Halo, '+depan()+'.</h2><p class="lead">Yuk, baca dulu panduannya! Kamu akan belajar materi energi di Ruang Energi ini.</p><ol class="t"><li>Posisimu selalu ditunjukkan oleh deretan tab di bagian atas. Bagian yang sedang dibuka berwarna kuning.</li><li>Tekan tombol Lanjut untuk menuju bagian berikutnya, dan tombol Kembali untuk mengulang bagian sebelumnya.</li><li>Bagian yang sudah kamu lewati dapat dibuka kembali melalui tab. Bagian yang belum kamu capai masih terkunci.</li><li>Materi dan kuis memerlukan koneksi internet. Apabila tampilannya kosong, muat ulang halaman atau gunakan tombol buka di tab baru.</li><li>Saat mengerjakan kuis, tulislah namamu persis seperti yang kamu isi ketika masuk.</li><li>Setelah selesai, tekan tombol Keluar. Data yang kamu isi di perangkat ini akan dihapus, sehingga kamu perlu mengisinya kembali saat masuk berikutnya.</li></ol><div class="box"><b>Urutan belajar</b>Panduan, Tujuan, Materi, Simulasi dan Contoh Soal, Kuis, Rangkuman, lalu Tentang.</div>'},
+ function(){return '<h2 class="page">Tujuan Pembelajaran</h2><p class="lead">Setelah mempelajari materi ini, kamu diharapkan mampu:</p><ul class="t tujuan"><li>Menjelaskan pengertian energi kinetik, energi potensial, dan energi mekanik.</li><li>Menghitung energi kinetik dan energi potensial dengan satuan yang benar.</li><li>Menghitung energi mekanik sebagai jumlah energi kinetik dan energi potensial.</li><li>Mengerjakan soal dan kuis tentang ketiga energi tersebut dengan benar.</li></ul>'},
+ function(){return '<h2 class="page">Materi: Energi Kinetik, Potensial, dan Mekanik</h2><p class="lead">Geser slide dengan tombol di bawah materi atau tombol panah pada keyboard.</p><div id="mat">'+CANVA+'</div><p class="credit" id="matcr"><a href="https://www.canva.com/design/DAHbVFcas_g/OhYsgj1nlgncCNtvvn-40A/view" target="_blank" rel="noopener">Buka materi di tab baru</a>. Jenis-jenis Energi Presentasi oleh Missel Putbyhah, dibuat dengan Canva.</p>'},
+ function(){return '<h2 class="page">Simulasi dan Contoh Soal</h2><p class="lead">Pilih jenis energi, ikuti petunjuknya, lalu kerjakan contoh soal di bagian bawah.</p><div id="sim"></div><h3 class="bag">Contoh Soal</h3><p class="lead">Tulis jawabanmu dalam joule, angkanya saja.</p>'+soalHtml()},
+ function(){return '<h2 class="page">Kuis</h2><p class="lead">Kerjakan kuis ini untuk mengecek pemahamanmu. Tulis namamu persis seperti saat masuk: <strong>'+esc(S.nama)+'</strong>.</p>'+WG+'<p class="credit"><a href="https://wayground.com/embed/quiz/6afe9a364276e942c457c191" target="_blank" rel="noopener">Buka kuis di tab baru</a> kalau tampilan di atas tidak muncul.</p>'},
+ function(){return '<h2 class="page">Rangkuman</h2><p class="lead">Poin penting yang perlu kamu ingat.</p><div class="box"><b>Pengertian</b>Energi kinetik adalah energi yang dimiliki benda karena geraknya.<br>Energi potensial adalah energi yang dimiliki benda karena posisinya, misalnya ketinggiannya.<br>Energi mekanik adalah jumlah energi kinetik dan energi potensial.<br>Satuan energi adalah joule (J).</div><div class="box"><b>Rumus</b><div class="formula">Ek = ½ · m · v²</div><div class="formula">Ep = m · g · h</div><div class="formula">Em = Ek + Ep</div>m = massa (kg), v = kecepatan (m/s), h = tinggi (m), g = percepatan gravitasi (sekitar 9,8 m/s², sering dibulatkan menjadi 10 m/s²).</div><div class="box"><b>Yang sering terlewat</b>Ubah satuan dulu sebelum menghitung, misalnya gram ke kg atau km/jam ke m/s. Kecepatan pada Ek dikuadratkan. Energi mekanik adalah jumlah Ek dan Ep.</div>'},
+ function(){return '<h2 class="page">Tentang Media Ini</h2><div class="ab"><div class="ab-h"><span class="ab-n">1</span><span class="ab-t">Ruang Energi</span></div><p>Ruang Energi merupakan media pembelajaran digital yang dirancang sebagai ruang belajar bagi siswa untuk mengenal dan memahami konsep energi dalam mata pelajaran IPAS. Melalui penyajian materi, ilustrasi, contoh dalam kehidupan sehari-hari, serta aktivitas interaktif, siswa dapat mempelajari energi dengan cara yang lebih menarik dan mudah dipahami.</p></div><div class="ab"><div class="ab-h"><span class="ab-n">2</span><span class="ab-t">Apa yang Bisa Kamu Pelajari?</span></div><p>Kamu dapat mempelajari materi energi dan usaha, mulai dari pengenalan energi kinetik, energi potensial, hingga energi mekanik. Setiap materi dilengkapi dengan penjelasan konsep, rumus, contoh perhitungan, serta simulasi interaktif yang memungkinkan kamu memasukkan nilai dan melihat hasil perhitungannya secara langsung.</p></div><div class="ab"><div class="ab-h"><span class="ab-n">3</span><span class="ab-t">Fitur yang Tersedia</span></div><span class="ab-c">Materi Pembelajaran</span><span class="ab-c">Simulasi dan contoh soal</span><span class="ab-c">Aktivitas Interaktif</span></div><div class="ab"><div class="ab-h"><span class="ab-n">4</span><span class="ab-t">Pengembang</span></div><p>Media pembelajaran ini dikembangkan oleh mahasiswa Program Studi Teknologi Pendidikan sebagai bagian dari pengembangan bahan ajar digital.</p></div><div class="ab"><div class="ab-h"><span class="ab-n">5</span><span class="ab-t">Untuk Siapa Ruang Energi Ini?</span></div><p>Media ini ditujukan bagi siswa kelas X SMK yang sedang mempelajari materi energi dalam mata pelajaran IPAS.</p></div>'}
+];
+
+/* ===== Penampil slide materi dari gambar (aset/materi/slide (1).jpg, slide (2).jpg, ...) =====
+   Jika gambar tidak ditemukan, yang tampil adalah embed Canva. */
+function muatSlide(){
+  var box=$("mat"); if(!box)return;
+  function url(i,e){return encodeURI("aset/materi/slide ("+i+")."+e)}
+  function coba(e,ok,gagal){var im=new Image();im.onload=ok;im.onerror=gagal;im.src=url(1,e)}
+  coba("jpg",function(){mulai("jpg")},function(){coba("png",function(){mulai("png")},function(){})});
+  function mulai(e){
+    var cur=1,total=1,selesai=false;
+    box.innerHTML='<div class="slider"><div class="sl-view"><img id="sl-img" alt="Slide materi"></div><div class="sl-bar"><button class="btn ghost" id="sl-prev">Sebelumnya</button><span id="sl-no"></span><button class="btn" id="sl-next">Berikutnya</button></div></div>';
+    $("matcr").textContent="Materi dibuat dengan Canva.";
+    function tampil(){
+      if(!$("sl-img"))return;
+      $("sl-img").src=url(cur,e);
+      $("sl-no").textContent="Slide "+cur+" dari "+total+(selesai?"":"+");
+      $("sl-prev").disabled=cur<=1; $("sl-next").disabled=cur>=total;
+    }
+    function cari(i){var t=new Image();t.onload=function(){total=i;tampil();cari(i+1)};t.onerror=function(){selesai=true;tampil()};t.src=url(i,e)}
+    $("sl-prev").onclick=function(){if(cur>1){cur--;tampil()}};
+    $("sl-next").onclick=function(){if(cur<total){cur++;tampil()}};
+    window.slGeser=function(d){var n=cur+d;if(n>=1&&n<=total){cur=n;tampil()}};
+    tampil();cari(2);
+  }
+}
+document.addEventListener("keydown",function(e){
+  if(!$("sl-img")||!window.slGeser||e.target.matches("input,select,textarea"))return;
+  if(e.key==="ArrowRight")slGeser(1); if(e.key==="ArrowLeft")slGeser(-1);
+});
+
+/* ===== Simulasi energi: busur panah, roller coaster ===== */
+var SIM_CSS=`
+.sm{--sm-ep:#2478B5;--sm-epi:#fff;margin:16px 0 22px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sm{--sm-ep:#6CC3F0;--sm-epi:#0F1B30}}
+:root[data-theme="dark"] .sm{--sm-ep:#6CC3F0;--sm-epi:#0F1B30}
+.sm-tabs{display:flex;gap:6px;margin-bottom:8px}
+.sm-tabs button{flex:1;font:inherit;font-weight:700;padding:9px 6px;border:1.5px solid var(--ink-soft);border-radius:6px;background:var(--card);color:var(--ink);cursor:pointer}
+.sm-tabs button[aria-selected=true]{background:var(--amber);color:var(--amber-ink);border-color:var(--ink)}
+.sm-cap{margin:0 0 8px;color:var(--ink-soft);font-size:.95rem}
+.sm-stage{position:relative;border:1.5px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--card)}
+.sm-stage canvas{display:block;width:100%}
+.sm-btns{position:absolute;right:8px;bottom:8px;display:flex;gap:6px}
+.sm .sm-btns .btn{padding:5px 16px;font-size:.92rem;background:var(--card)}
+.sm .sm-btns #sm-play{background:var(--amber);color:var(--amber-ink);border-color:var(--ink)}
+.sm .sm-btns .btn:disabled{opacity:.5;cursor:not-allowed}
+.sm-rules{margin:0 0 12px;padding:12px 16px;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--amber);border-radius:6px}
+.sm-rules b{display:block;margin-bottom:2px}.sm-rules p{margin:0 0 6px}.sm-rules ol{margin:0;padding-left:22px}.sm-rules li{margin:3px 0}
+.sm-grid{display:grid;gap:12px;margin-top:12px;grid-template-columns:1fr 1fr}
+@media (max-width:560px){.sm-grid{grid-template-columns:1fr}}
+.sm-ctl,.sm-out{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.sm-row{display:grid;grid-template-columns:1fr auto;gap:0 8px;margin-bottom:10px}
+.sm-row label{margin:0}
+.sm-row input{grid-column:1/3;width:100%;accent-color:var(--ink)}
+.sm-g{margin:0;font-size:.85rem;color:var(--ink-soft)}
+.sm-f{font-style:italic;margin:2px 0}.sm-f.sub{font-style:normal}
+.sm-out b{padding:1px 8px;border-radius:5px}
+.ek{background:var(--amber);color:var(--amber-ink)}
+.ep{background:var(--sm-ep);color:var(--sm-epi)}
+.em{background:var(--ink);color:var(--paper)}
+.sm-bar{display:flex;height:22px;margin:10px 0 2px;border:1.5px solid var(--ink);border-radius:6px;background:var(--paper);overflow:hidden}
+.sm-bar i{display:block;height:100%}
+.sm-sc{display:flex;justify-content:space-between;font-size:.8rem;color:var(--ink-soft)}
+.sm-hint{margin:10px 0 0;font-size:.92rem;color:var(--ink-soft)}
+.sm-misi{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 12px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--amber);border-radius:6px}
+.sm-misi.ok{border-left-color:var(--ok)}
+.sm-misi p{margin:0}.sm-ok{color:var(--ok);font-weight:700}
+`;
+function muatSimulasi(){
+  var root=$("sim"); if(!root)return;
+  if(!document.getElementById("sim-css")){var st=document.createElement("style");st.id="sim-css";st.textContent=SIM_CSS;document.head.appendChild(st)}
+  var G=10,V={m:2,v:3,h:4},mode=0,mi=[0,0,0],C={},fr=0,last=0,W=0,H=0,u=1;
+  var bph=0,btm=0,bx=0,cs=0,cvs=0,H0=4,run=0,ps=0;
+  var NM=["Kinetik","Potensial","Mekanik"],
+  RUL=[["Busur dilepas, lalu panah melesat ke sasaran. Energi kinetik ada karena panah bergerak.",["Atur massa dan kecepatan panah dengan slider.","Tekan Luncurkan, lalu perhatikan panah yang melesat.","Cocokkan nilai Ek di panel dengan hitunganmu sendiri."]],
+  ["Kereta roller coaster berhenti di lereng. Energi potensial ada karena kereta berada di ketinggian.",["Atur massa dan tinggi kereta dengan slider. Kereta akan naik atau turun mengikuti tinggi yang kamu pilih.","Garis putus-putus menunjukkan tinggi (h), diukur lurus dari tanah.","Cocokkan nilai Ep di panel dengan hitunganmu sendiri."]],
+  ["Kereta dilepas dari ketinggian awal lalu meluncur di lintasan licin. Em adalah jumlah Ek dan Ep.",["Atur massa dan tinggi awal kereta. Kereta tidak bergerak sebelum kamu meluncurkannya.","Tekan Luncurkan. Perhatikan Ek dan Ep yang saling bergantian.","Perhatikan jumlahnya (Em). Tekan Ulangi untuk mencoba lagi."]]],
+  HINT=["Kecepatan dikuadratkan: v dua kali lebih besar membuat Ek empat kali lebih besar.","Ep sebanding dengan massa dan tinggi: tinggi dua kali lebih besar membuat Ep dua kali lebih besar.","Saat kereta meluncur turun, Ep berkurang dan Ek bertambah. Jumlahnya, yaitu Em = Ek + Ep, selalu sama."],
+  SL=[["m","Massa (m)"," kg",1,10],["v","Kecepatan (v)"," m/s",0,10],["h","Tinggi (h)"," m",0,10]],
+  USE=[["m","v"],["m","h"],["m","h"]],
+  TGT=[[18,50,100,200],[40,100,150,300],[60,90,150,250]],
+  JN=["energi kinetik","energi potensial","energi mekanik"];
+  function nf(n){return (Math.round(n*100)/100).toString().replace(".",",")}
+  function bar(p,max){return '<div class="sm-bar">'+p.map(function(x){return '<i class="'+x[1]+'" style="width:'+Math.min(100,x[0]/max*100)+'%"></i>'}).join("")+'</div><div class="sm-sc"><span>0</span><span>'+max+' J</span></div>'}
+
+  /* lintasan roller coaster: titik (x m, h m), disambung mulus */
+  var TP=[[0,11],[8,0],[15,4.5],[21,1],[28,11]],TX=[],TH=[],TS=[];
+  (function(){var n=560,k=0,s=0;for(var i=0;i<=n;i++){var x=28*i/n;while(k<TP.length-2&&x>TP[k+1][0])k++;var a=TP[k],b=TP[k+1],t=(x-a[0])/(b[0]-a[0]);TX.push(x);TH.push(a[1]+(b[1]-a[1])*(1-Math.cos(Math.PI*t))/2);if(i)s+=Math.hypot(x-TX[i-1],TH[i]-TH[i-1]);TS.push(s)}})();
+  function at(s){var lo=0,hi=TS.length-1;s=Math.max(0,Math.min(TS[hi],s));while(hi-lo>1){var m=(lo+hi)>>1;if(TS[m]>s)hi=m;else lo=m}var d=TS[hi]-TS[lo]||1,f=(s-TS[lo])/d;return{x:TX[lo]+(TX[hi]-TX[lo])*f,h:TH[lo]+(TH[hi]-TH[lo])*f,g:(TH[hi]-TH[lo])/d}}
+  function sAtH(h){var i=0;while(i<160&&TH[i]>h)i++;if(i==0)return 0;var a=TH[i-1],b=TH[i];return TS[i-1]+(TS[i]-TS[i-1])*(a-h)/((a-b)||1)}
+  function rst(){H0=V.h;cs=sAtH(H0);cvs=0;bph=0;btm=0;bx=0;run=0}
+  function step(dt){for(var k=0;k<6;k++){var d=dt/6,p=at(cs);cvs+=-G*p.g*d;cs+=cvs*d;p=at(cs);var e=H0-p.h;cvs=e<=0?0:(cvs<0?-1:1)*Math.sqrt(2*G*e)}}
+  function bowStep(dt){
+    var dist=W*.9-4*u-(W*.13+12*u)-62*u;
+    if(bph==1){bx+=V.v*dt*W*.12;if(bx>=dist){bx=dist;bph=2;btm=0}}
+    else if(bph==2){btm+=dt;if(btm>1.1){bph=0;btm=0;bx=0}}
+  }
+  function sync(){
+    var p=$("sm-play"),q=$("sm-reset"),t="",d=false;
+    if(mode==0){t=bph==0?"Luncurkan":"Meluncur…";d=bph!=0||V.v==0}
+    if(mode==2)t=run==0?"Luncurkan":run==1?"Jeda":"Lanjut";
+    p.hidden=mode==1;q.hidden=mode!=2||run==0;p.disabled=d;if(p.textContent!=t)p.textContent=t;
+  }
+
+  root.innerHTML='<div class="sm"><div class="sm-tabs" role="tablist" aria-label="Pilih jenis energi">'+NM.map(function(n,i){return '<button type="button" role="tab" data-mode="'+i+'">'+n+'</button>'}).join("")+'</div><div class="sm-rules" id="sm-rules"></div><div class="sm-misi" id="sm-misi"><p id="sm-mt" role="status"></p><button type="button" class="btn ghost" id="sm-mb">Misi lain</button></div><div class="sm-stage"><canvas id="sm-cv" role="img"></canvas><div class="sm-btns"><button type="button" class="btn ghost" id="sm-reset" hidden>Ulangi</button><button type="button" class="btn ghost" id="sm-play"></button></div></div><div class="sm-grid"><div class="sm-ctl">'+SL.map(function(s){return '<div class="sm-row" data-r="'+s[0]+'"><label for="sm-'+s[0]+'">'+s[1]+'</label><b id="sv-'+s[0]+'"></b><input type="range" id="sm-'+s[0]+'" data-k="'+s[0]+'" min="'+s[3]+'" max="'+s[4]+'" step="1" value="'+V[s[0]]+'"></div>'}).join("")+'<p class="sm-g">g = 10 m/s²</p></div><div class="sm-out" id="sm-out"></div></div></div>';
+
+  var cv=$("sm-cv"),cx=cv.getContext("2d");
+  function getC(){
+    var s=getComputedStyle(document.documentElement);function g(n,f){return s.getPropertyValue(n).trim()||f}
+    C={ink:g("--ink","#14284B"),amber:g("--amber","#E8A317"),card:g("--card","#fff"),ai:g("--amber-ink","#14284B"),cloud:g("--cloud","#E6ECF1"),h1:g("--hill1","#C4D0DB"),h3:g("--hill3","#B3C2D0"),tower:g("--tower","#5B6B80"),dk:parseInt(g("--paper","#F4F6F3").slice(1,3),16)<100};
+    C.ep=C.dk?"#6CC3F0":"#2478B5";C.epi=C.dk?"#0F1B30":"#fff";
+  }
+  function fit(){var w=cv.parentNode.clientWidth||600,h=Math.round(w*(w<520?.74:.5)),d=window.devicePixelRatio||1;cv.style.height=h+"px";cv.width=w*d;cv.height=h*d;cx.setTransform(d,0,0,d,0,0);W=w;H=h;u=Math.max(.9,Math.min(1.45,w/470))}
+
+  function upd(){
+    var m=V.m,v=V.v,h=V.h,ek=.5*m*v*v,ep=m*G*h,em=m*G*h,val=[ek,ep,em][mode],o="";
+    var hi=$("sm-h");hi.min=mode==2?1:0;if(mode==2&&V.h<1)V.h=1;hi.value=V.h;h=V.h;
+    root.querySelector('label[for="sm-h"]').textContent=mode==2?"Tinggi awal (h)":"Tinggi (h)";
+    [].forEach.call(root.querySelectorAll(".sm-tabs button"),function(b,i){b.setAttribute("aria-selected",i==mode)});
+    SL.forEach(function(s){root.querySelector('[data-r="'+s[0]+'"]').hidden=USE[mode].indexOf(s[0])<0;$("sv-"+s[0]).textContent=V[s[0]]+s[2]});
+    var fk='<div class="sm-f sub">Ek = ½ × '+m+' × '+v+'² = <b class="ek">'+nf(ek)+' J</b></div>',fp='<div class="sm-f sub">Ep = '+m+' × 10 × '+h+' = <b class="ep">'+nf(ep)+' J</b></div>';
+    if(mode==0)o='<div class="sm-f">Ek = ½ × m × v²</div>'+fk+bar([[ek,"ek"]],500);
+    if(mode==1)o='<div class="sm-f">Ep = m × g × h</div>'+fp+bar([[ep,"ep"]],1000);
+    if(mode==2)o='<div class="sm-f">Em = Ek + Ep</div><div class="sm-f sub">Ek = <b class="ek" id="lv-ek"></b></div><div class="sm-f sub">Ep = <b class="ep" id="lv-ep"></b></div><div class="sm-f sub">Em = <b class="em" id="lv-em"></b></div><div class="sm-bar"><i class="ek" id="lb-ek"></i><i class="ep" id="lb-ep"></i></div><div class="sm-sc"><span>0</span><span id="lv-max"></span></div><p class="sm-hint" id="lv-st"></p>';
+    $("sm-out").innerHTML=o+'<p class="sm-hint">'+HINT[mode]+'</p>';
+    var R=RUL[mode];$("sm-rules").innerHTML='<b>Petunjuk</b><p>'+R[0]+'</p><ol>'+R[1].map(function(x){return '<li>'+x+'</li>'}).join("")+'</ol>';
+    cv.setAttribute("aria-label",R[0]);sync();
+    var t=TGT[mode][mi[mode]],ok=Math.abs(val-t)<1e-6;
+    $("sm-mt").innerHTML='<b>Misi:</b> buat '+JN[mode]+' tepat <b>'+t+' J</b>. '+(ok?'<span class="sm-ok">✔ Berhasil!</span>':'Geser slider sampai angkanya pas.');
+    $("sm-misi").className="sm-misi"+(ok?" ok":"");
+    if(mode==2)live();
+  }
+  function live(){
+    if(!$("lv-ek"))return;
+    var p=at(cs),em=V.m*G*H0,ep=V.m*G*p.h,ek=Math.max(0,em-ep),v=Math.sqrt(2*ek/V.m);
+    $("lv-ek").textContent=nf(ek)+" J";$("lv-ep").textContent=nf(Math.min(ep,em))+" J";$("lv-em").textContent=nf(em)+" J";
+    $("lb-ek").style.width=ek/em*100+"%";$("lb-ep").style.width=Math.min(100,ep/em*100)+"%";
+    $("lv-max").textContent=nf(em)+" J";$("lv-st").textContent="h = "+nf(p.h)+" m, v = "+nf(v)+" m/s";
+  }
+
+  /* ---- gambar ---- */
+  function T(s,x,y,al,sz,c){cx.font="600 "+(sz||13)+"px Georgia,serif";cx.textAlign=al||"left";cx.fillStyle=c||C.ink;cx.fillText(s,x,y)}
+  function rr(x,y,w,h,r){cx.beginPath();cx.moveTo(x+r,y);cx.arcTo(x+w,y,x+w,y+h,r);cx.arcTo(x+w,y+h,x,y+h,r);cx.arcTo(x,y+h,x,y,r);cx.arcTo(x,y,x+w,y,r);cx.closePath()}
+  function cloud(x,y,k){cx.beginPath();cx.ellipse(x,y,34*k,10*k,0,0,7);cx.fill();cx.beginPath();cx.arc(x-10*k,y-7*k,13*k,0,7);cx.fill();cx.beginPath();cx.arc(x+10*k,y-11*k,16*k,0,7);cx.fill()}
+  function base(){
+    var gy=Math.round(H*.84),g=cx.createLinearGradient(0,0,0,gy);
+    g.addColorStop(0,C.dk?"#13284A":"#BFDDF2");g.addColorStop(1,C.dk?"#24406A":"#EEF5F8");
+    cx.fillStyle=g;cx.fillRect(0,0,W,H);
+    cx.fillStyle=C.amber;cx.beginPath();cx.arc(W*.9,H*.16,Math.min(22,W*.04),0,7);cx.fill();
+    cx.fillStyle=C.cloud;[.26,.55,.8].forEach(function(f,i){cloud(W*f,H*(.13+i*.09),.7+i*.15)});
+    cx.fillStyle=C.h1;cx.beginPath();cx.moveTo(0,gy);for(var x=0;x<=W;x+=8)cx.lineTo(x,gy-16-10*Math.sin(x/90)-6*Math.sin(x/37));cx.lineTo(W,gy);cx.fill();
+    cx.fillStyle=C.h3;cx.fillRect(0,gy,W,H-gy);
+    return gy;
+  }
+  function ruler(gy,sc){
+    cx.strokeStyle=C.ink;cx.lineWidth=2;cx.beginPath();cx.moveTo(46,gy);cx.lineTo(46,gy-10*sc);cx.stroke();cx.lineWidth=1.5;
+    for(var i=0;i<=10;i++){var y=gy-i*sc;cx.beginPath();cx.moveTo(46,y);cx.lineTo(i%2?52:58,y);cx.stroke();if(i%2==0)T(i,64,y+4,"left",11)}
+    T(W>=520?"tinggi (m)":"m",46,gy-10*sc-28,"left",11);
+  }
+  function dim(x,y1,y2,h,side){
+    if(h<=0)return;cx.strokeStyle=C.ink;cx.fillStyle=C.ink;cx.lineWidth=1.5;cx.setLineDash([4,3]);cx.beginPath();cx.moveTo(x,y1);cx.lineTo(x,y2);cx.stroke();cx.setLineDash([]);
+    cx.beginPath();cx.moveTo(x,y2);cx.lineTo(x-4,y2+8);cx.lineTo(x+4,y2+8);cx.fill();cx.beginPath();cx.moveTo(x,y1);cx.lineTo(x-4,y1-8);cx.lineTo(x+4,y1-8);cx.fill();
+    var t="h = "+nf(h)+" m",y=(y1+y2)/2+4;cx.font="600 13px Georgia,serif";var w=cx.measureText(t).width,l=side>0?x+8:x-8-w;if(l<72)l=x+8;
+    cx.globalAlpha=.85;rr(l-4,y-14,w+8,20,5);cx.fillStyle=C.card;cx.fill();cx.globalAlpha=1;T(t,l,y,"left",13);
+  }
+  function lines(x,y,sp){if(sp<=0)return;cx.strokeStyle=C.ink;cx.globalAlpha=.3;cx.lineWidth=2;for(var k=0;k<3;k++){cx.beginPath();cx.moveTo(x-6-k*3,y+k*7);cx.lineTo(x-10-k*3-sp*5,y+k*7);cx.stroke()}cx.globalAlpha=1}
+
+  /* busur dan panah */
+  function kin(gy){
+    var ay=gy-80*u,b0=W*.13,rel=b0+12*u,tx=W*.9,len=62*u,hw=46*u;
+    /* dudukan busur dan sasaran */
+    cx.strokeStyle=C.tower;cx.lineWidth=4;cx.beginPath();cx.moveTo(b0-4*u,gy);cx.lineTo(b0-12*u,ay+8*u);cx.moveTo(tx-14*u,gy);cx.lineTo(tx,ay);cx.lineTo(tx+14*u,gy);cx.stroke();
+    rr(tx-5*u,ay-40*u,10*u,80*u,4);cx.fillStyle="#F4F6F3";cx.fill();cx.lineWidth=2;cx.strokeStyle=C.ink;cx.stroke();
+    cx.fillStyle="#C0392B";cx.fillRect(tx-5*u,ay-26*u,10*u,52*u);cx.fillStyle=C.amber;cx.fillRect(tx-5*u,ay-12*u,10*u,24*u);cx.fillStyle=C.ink;cx.fillRect(tx-5*u,ay-4*u,10*u,8*u);
+    /* busur */
+    var pl=bph==0?V.v/10*44*u:0,nock=rel-pl,tail=bph>=1?rel+bx:nock,tip=tail+len;
+    cx.strokeStyle=C.ink;cx.lineWidth=5;cx.lineCap="round";cx.beginPath();cx.moveTo(rel,ay-hw);cx.quadraticCurveTo(b0-22*u,ay,rel,ay+hw);cx.stroke();
+    cx.lineWidth=1.5;cx.beginPath();cx.moveTo(rel,ay-hw);cx.lineTo(nock,ay);cx.lineTo(rel,ay+hw);cx.stroke();
+    /* panah */
+    if(bph==1)lines(tail,ay-9,V.v);
+    cx.strokeStyle=C.ink;cx.lineWidth=(2+V.m*.35)*u;cx.beginPath();cx.moveTo(tail,ay);cx.lineTo(tip,ay);cx.stroke();
+    cx.fillStyle=C.ink;cx.beginPath();cx.moveTo(tip+10*u,ay);cx.lineTo(tip-2*u,ay-5*u);cx.lineTo(tip-2*u,ay+5*u);cx.fill();
+    cx.fillStyle=C.amber;[-1,1].forEach(function(k){cx.beginPath();cx.moveTo(tail,ay);cx.lineTo(tail-8*u,ay+k*6*u);cx.lineTo(tail+7*u,ay);cx.fill()});
+    T("m = "+V.m+" kg      v = "+V.v+" m/s",W/2,24,"center",14);
+  }
+  /* roller coaster */
+  function tk(gy){
+    var sc=(gy-(30+22*u))/11,x0=84,kx=(W-x0-16)/28,o={sc:sc,X:function(x){return x0+x*kx},Y:function(h){return gy-h*sc}};
+    ruler(gy,sc);
+    cx.strokeStyle=C.tower;cx.lineWidth=3;cx.beginPath();for(var x=2;x<=26;x+=2){cx.moveTo(o.X(x),o.Y(TH[x*20])+4);cx.lineTo(o.X(x),gy)}cx.stroke();
+    cx.lineJoin="round";cx.lineCap="round";cx.beginPath();for(var i=0;i<TX.length;i+=4)cx[i?"lineTo":"moveTo"](o.X(TX[i]),o.Y(TH[i]));
+    cx.strokeStyle=C.ink;cx.lineWidth=8;cx.stroke();cx.strokeStyle=C.amber;cx.lineWidth=3;cx.stroke();
+    return o;
+  }
+  function cart(o,s,fill,tc){
+    var p=at(s),a=at(s-.2),b=at(s+.2),ang=Math.atan2(o.Y(b.h)-o.Y(a.h),o.X(b.x)-o.X(a.x)),w=(32+V.m*2.2)*u,bh=16*u,fs=Math.round(10*Math.min(u,1.2));
+    cx.save();cx.translate(o.X(p.x),o.Y(p.h));cx.rotate(ang);
+    rr(-w/2,-bh-9*u,w,bh,4*u);cx.fillStyle=fill;cx.fill();cx.strokeStyle=C.ink;cx.lineWidth=2;cx.stroke();
+    [-w/3,w/3].forEach(function(wx){cx.beginPath();cx.arc(wx,-6*u,4.5*u,0,7);cx.fillStyle=C.ink;cx.fill()});
+    T(V.m+" kg",0,-bh/2-9*u+4,"center",fs,tc);
+    cx.restore();
+    return p;
+  }
+  function pot(gy){var o=tk(gy),p=cart(o,ps,C.ep,C.epi);dim(o.X(p.x),gy,o.Y(p.h),p.h,-1)}
+  function mec(gy){var o=tk(gy),p=cart(o,cs,C.amber,C.ai);dim(o.X(p.x),gy,o.Y(p.h),p.h,p.g<0?-1:1)}
+  function draw(){var gy=base();[kin,pot,mec][mode](gy)}
+  function loop(t){
+    if(!root.isConnected)return;
+    var dt=Math.min(.05,(t-last)/1000||0);last=t;
+    if(mode==0)bowStep(dt);
+    if(mode==1){var sT=sAtH(V.h);ps+=(sT-ps)*Math.min(1,dt*7);if(Math.abs(sT-ps)<.005)ps=sT}
+    if(mode==2&&run==1)step(dt);
+    if(mode==2&&fr%2==0)live();
+    if(fr++%60==0)getC();
+    sync();draw();requestAnimationFrame(loop);
+  }
+
+  root.addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    if(b.getAttribute("data-mode")!=null){mode=+b.getAttribute("data-mode");rst();ps=sAtH(V.h)}
+    else if(b.id=="sm-play"){if(mode==0){if(bph==0&&V.v>0){bph=1;bx=0}}else if(mode==2)run=run==1?2:1}
+    else if(b.id=="sm-reset")rst();
+    else if(b.id=="sm-mb")mi[mode]=(mi[mode]+1)%TGT[mode].length;
+    upd();
+  });
+  root.addEventListener("input",function(e){var k=e.target.getAttribute("data-k");if(k){V[k]=+e.target.value;rst();upd()}});
+  window.addEventListener("resize",function f(){if(!root.isConnected){window.removeEventListener("resize",f);return}fit()});
+  getC();fit();rst();ps=sAtH(V.h);upd();requestAnimationFrame(loop);
+}
+
+function tabs(){
+  var h="";
+  BAGIAN.forEach(function(b,i){
+    var c=i==S.p?"on":(i<=S.max?"done":"");
+    h+='<button class="tab '+c+'" data-tab="'+i+'"'+(i>S.max?" disabled":"")+(i==S.p?' aria-current="step"':"")+'>'+(i+1)+" "+b+"</button>";
+  });
+  $("tabs").innerHTML=h;
+}
+function render(){
+  var p=S.p||0; if(S.max==null||S.max<p)S.max=p;
+  tabs(); $("isi").innerHTML=HAL[p](); if(p==2)muatSlide(); if(p==3)muatSimulasi();
+  $("kembali").style.visibility=p==0?"hidden":"visible";
+  $("lanjut").textContent=p==N?"Selesai dan keluar":"Lanjut";
+  var on=document.querySelector(".tab.on"); if(on&&on.scrollIntoView)on.scrollIntoView({block:"nearest",inline:"center"});
+}
+function cek(i){
+  var q=SOAL[i],f=$("fb"+i),v=parseFloat($("jw"+i).value.replace(",","."));
+  if(isNaN(v)){f.className="fb no";f.textContent="Isi dulu jawabanmu dengan angka.";return}
+  if(v===q.a){f.className="fb ok";f.textContent=q.ok;return}
+  f.className="fb no";f.textContent=q.w[v]||"Belum tepat. Tulis rumusnya dulu, lalu masukkan angkanya satu per satu.";
+}
+function show(){
+  var ok=S.nama&&S.absen&&S.kelas; $("v-login").hidden=!!ok; $("v-app").hidden=!ok;
+  if(ok){$("w-nama").textContent=S.nama;$("w-info").textContent="Absen "+S.absen+", "+S.kelas;render()}
+}
+function pindah(p){S.p=Math.max(0,Math.min(N,p));if(S.max==null||S.max<S.p)S.max=S.p;save();render();window.scrollTo(0,0)}
+function keluar(){S={};save();$("nama").value="";$("absen").value="";$("kelas").value="";$("err").textContent="";show();window.scrollTo(0,0)}
+
+$("lanjut").onclick=function(){if((S.p||0)==N)keluar();else pindah((S.p||0)+1)};
+$("kembali").onclick=function(){pindah((S.p||0)-1)};
+$("tabs").onclick=function(e){var b=e.target.closest("[data-tab]");if(b&&!b.disabled)pindah(+b.getAttribute("data-tab"))};
+$("isi").onclick=function(e){var b=e.target.closest("[data-cek]");if(b)cek(+b.getAttribute("data-cek"))};
+$("isi").onkeydown=function(e){if(e.key==="Enter"&&e.target.matches("input[data-i]"))cek(+e.target.getAttribute("data-i"))};
+$("keluar").onclick=keluar;
+$("masuk").onclick=function(){
+  var a=$("nama").value.trim(),b=$("absen").value.trim(),c=$("kelas").value;
+  if(!a||!b||!c){$("err").textContent="Lengkapi nama, nomor absen, dan kelas sebelum masuk.";return}
+  if(!/^\d{1,3}$/.test(b)){$("err").textContent="Nomor absen hanya berisi angka.";return}
+  S={nama:a,absen:b,kelas:c,p:0,max:0};save();kirimData({nama:a,absen:b,kelas:c,tahap:"Masuk",skor:""});$("err").textContent="";show();window.scrollTo(0,0);
+};
+
+/* ===== Pengiriman data ke Google Form =====
+   Alamat form dan kode kolom (entry) diambil dari link pra-pengisian.
+   Jika kolom di form diubah/dibuat ulang, kode entry harus diperbarui. */
+var FORM_URL="https://docs.google.com/forms/d/e/1FAIpQLSfJk8SsTCjcu2yxaoPipzzYZ8ZP4pWLqsUqbyncbPPlNUi_Bg/formResponse";
+var KOLOM={nama:"entry.1283408016",absen:"entry.433066223",kelas:"entry.924447670",tahap:"entry.1182115751",skor:"entry.1764623562"};
+var QKEY="energi_antrean";
+function paket(d){var b=new URLSearchParams();for(var k in KOLOM)b.append(KOLOM[k],d[k]==null?"":d[k]);return b.toString()}
+function kirimSatu(str){return fetch(FORM_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:str})}
+function antre(){try{return JSON.parse(localStorage.getItem(QKEY))||[]}catch(e){return[]}}
+function simpanAntre(a){try{localStorage.setItem(QKEY,JSON.stringify(a))}catch(e){}}
+function kirimData(d){var s=paket(d);return kirimSatu(s).catch(function(){var a=antre();a.push(s);simpanAntre(a)})}
+function kirimUlang(){var a=antre();if(!a.length)return;simpanAntre([]);a.forEach(function(s){kirimSatu(s).catch(function(){var b=antre();b.push(s);simpanAntre(b)})})}
+window.addEventListener("online",kirimUlang);
+
+/* ===== Suara klik lembut (Web Audio, tanpa file) ===== */
+var SUARA=true,AC=null;
+function pop(){
+  if(!SUARA)return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    var t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();
+    o.type="sine";o.frequency.setValueAtTime(520,t);o.frequency.exponentialRampToValueAtTime(220,t+.09);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.1,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+.12);
+    o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.14);
+  }catch(e){}
+}
+document.addEventListener("click",function(e){if(e.target.closest("button"))pop()});
+if(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches){["sw","st"].forEach(function(i){var s=$(i);if(s&&s.pauseAnimations)s.pauseAnimations()})}
+
+load();show();kirimUlang();
+</script>
+</body>
+</html>
